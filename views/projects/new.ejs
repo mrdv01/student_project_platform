@@ -1,0 +1,58 @@
+<% layout('layouts/boilerplate') %>
+<div class="row">
+    <h1 class="text-center">New Project</h1>
+    <div class="col-md-6 offset-md-3">
+        <form action="/projects" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="project[title]" required>
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+            </div>
+           
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input class="form-control" type="file" id="image" name="image">
+              </div>
+              
+            
+            <div class="mb-3">
+                <label class="form-label" for="files">File Url</label>
+                <input class="form-control" type="text" id="files" name="project[files]" required>
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" id="description" name="project[description]" rows="3" required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Technologies</label><br>
+                <div id="technologies-container">
+                    <!-- This will be populated with JavaScript -->
+                </div>
+                <input type="text" class="form-control mt-2" id="newTechnology" placeholder="Enter a new technology" required>
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+                <button type="button" class="btn btn-primary mt-2" onclick="addTechnology()">Add Technology</button>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-success">Add Project</button>
+            </div>
+        </form>
+       
+        <button type="button" class="btn btn-outline-secondary"><a class="nav-link"  href="/projects">All Projects</a></button>
+    </div>
+</div>
+
+<script src="/javascripts/addTechnology.js"></script>
+

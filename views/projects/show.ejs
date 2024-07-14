@@ -1,0 +1,96 @@
+<% layout('layouts/boilerplate') %>
+<div class="row row-cols-1 row-cols-md-2 g-4 mt-2 mb-4">
+    <div class="col">
+        <div class="card">
+            <img crossorigin="anonymous" src="<%= project.image.url %>" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%= project.title %></h5>
+              <p class="card-text"><%= project.description %>.</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Technologies:
+                <% for(let technology of project.technologies) { %>
+                  <%= technology %>
+                <% } %>
+              </li>
+              <li class="list-group-item">
+                Uploaded By: <%= project.owner.username %>
+              </li>
+              <li class="list-group-item text-muted">
+                CreatedAt: <%= new Date(project.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </li>
+              <li class="list-group-item text-muted">
+                UpdatedAt: <%= new Date(project.updatedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %>
+              </li>
+            </ul>
+            <div class="card-body">
+              <% if(currentUser && project.owner.equals(currentUser._id)){ %>
+              <a href="/projects/<%= project._id %>/edit" class="card-link" style="text-decoration: none;">Edit</a>
+              <% } %>
+              <a href="#" class="card-link" style="text-decoration: none;">Source Code</a>
+              
+            </div> 
+            <% if(currentUser && project.owner.equals(currentUser._id)){ %>
+            <div class="card-body">
+                <form  action="/projects/<%=project._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+              
+            </div>
+            <% } %>
+        </div>
+        
+    </div>
+    <div class="col">
+      <% if(currentUser){%>
+      <h2>Leave A Review</h2>
+      <form action="/projects/<%= project._id %>/reviews" novalidate class="needs-validation mb-2" method="POST">
+        <fieldset class="starability-basic">
+          <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked
+            aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+        <div class="mb-3">
+          <label for="body" class="form-label">Review</label>
+          <textarea name="review[body]" id="body" class="form-control" cols="30" rows="3" required></textarea>
+          <div class="valid-feedback">Looks good</div>
+        </div>
+      <button class="btn btn-success">Submit</button>
+      </form>
+      <% }  %>
+      <% for(let review of project.reviews) { %>
+        <div class="card mb-3 ">
+            <div class="card-body">
+              <div class='stars-wrapper'>
+                <% for( let i = 0; i < review.rating; i++ ) { %>
+                    <div class='star-filled'>&#9733;</div>
+                <% } %>
+                <% for( let i = 0; i < 5 - review.rating; i++ ) { %>
+                    <div class='star-empty'>&#9734;</div>
+                <% } %>
+            </div>
+                <h6 class="card-subtitle mb-2 text-muted">By <%= review.owner.username%></h6>
+                <p class="card-text">Review: <%= review.body %></p>
+
+                <%  if( currentUser && review.owner.equals(currentUser._id))  {%>
+               
+                <form action="/projects/<%=project._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                 
+                    <button class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              <% } %>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</div>
