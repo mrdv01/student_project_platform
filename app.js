@@ -26,7 +26,7 @@ const projectController = require('./controllers/projects')
 const mongoSanitize = require('express-mongo-sanitize');
 
 const dbUrl = process.env.db_url || 'mongodb://localhost:27017/student-project-platform';
-const { MongoClient, ServerApiVersion } = require('mongodb');
+
 
 // Database Connection
 mongoose.connect(dbUrl).
