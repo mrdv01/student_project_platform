@@ -28,7 +28,7 @@
               <% if(currentUser && project.owner.equals(currentUser._id)){ %>
               <a href="/projects/<%= project._id %>/edit" class="card-link" style="text-decoration: none;">Edit</a>
               <% } %>
-              <a href="#" class="card-link" style="text-decoration: none;">Source Code</a>
+              <a href="<%= project.files[0] %>" target="_blank" class="card-link" style="text-decoration: none;">Source Code</a>
               
             </div> 
             <% if(currentUser && project.owner.equals(currentUser._id)){ %>
