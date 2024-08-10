@@ -25,7 +25,7 @@ const wrapAsync = require('./utils/wrapAsync');
 const projectController = require('./controllers/projects')
 const mongoSanitize = require('express-mongo-sanitize');
 
-const dbUrl = process.env.db_url || 'mongodb://localhost:27017/student-project-platform';
+const dbUrl ='mongodb://localhost:27017/student-project-platform';
 
 
 // Database Connection
